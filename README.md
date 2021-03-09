@@ -1,24 +1,65 @@
-# README
+# テーブル設計
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## users テーブル
 
-Things you may want to cover:
+| Column          | Type   | Options     |
+| --------------- | ------ | ----------- |
+| nickname        | string | null: false |
+| email           | string | null: false |
+| password        | string | null: false |
+| last-name       | string | null: false |
+| first-name      | string | null: false |
+| last-name-kana  | string | null: false |
+| first-name-kana | string | null: false |
+| birth-date      | date   | null: false |
 
-* Ruby version
+### Association
 
-* System dependencies
+- has_many :items
+- has_many :purchase-records
 
-* Configuration
+## Items テーブル
 
-* Database creation
+| Column   | Type       | Options           |
+| -------- | ---------- | ----------------- |
+| product  | text       | null: false       |
+| text     | text       | null: false       |
+| category | string     | null: false       |
+| status   | string     | null: false       |
+| fee      | string     | null: false       |
+| day      | string     | null: false       |
+| price    | integer    | null: false       |
+| user     | references | foreign_key: true |
 
-* Database initialization
+### Association
 
-* How to run the test suite
+- belongs_to :user
+- has_one :purchase-record
 
-* Services (job queues, cache servers, search engines, etc.)
+## Purchase-Records テーブル
 
-* Deployment instructions
+| Column | Type       | Options           |
+| ------ | ---------- | ----------------- |
+| user   | references | foreign_key: true |
+| item   | references | foreign_key: true |
 
-* ...
+### Association
+
+- belongs_to :user
+- belongs_to :item
+- has one :shipping-address
+
+## Shipping-Addresses テーブル
+
+| Column          | Type       | Options           |
+| --------------- | ---------- | ----------------- |
+| Postal-code     | integer    | null: false       |
+| Prefecture      | string     | null: false       |
+| City            | string     | null: false       |
+| Address         | string     | null: false       |
+| Phone-number    | integer    | null: false       |
+| Purchase-Record | references | foreign_key: true |
+
+### Association
+
+- belongs_to :purchase-record
