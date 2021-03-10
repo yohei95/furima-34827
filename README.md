@@ -2,16 +2,16 @@
 
 ## users テーブル
 
-| Column          | Type   | Options     |
-| --------------- | ------ | ----------- |
-| nickname        | string | null: false |
-| email           | string | null: false |
-| password        | string | null: false |
-| last-name       | string | null: false |
-| first-name      | string | null: false |
-| last-name-kana  | string | null: false |
-| first-name-kana | string | null: false |
-| birth-date      | date   | null: false |
+| Column             | Type   | Options                  |
+| ------------------ | ------ | ------------------------ |
+| nickname           | string | null: false              |
+| email              | string | null: false, unique:true |
+| encrypted_password | string | null: false              |
+| last_name          | string | null: false              |
+| first_name         | string | null: false              |
+| last_name_kana     | string | null: false              |
+| first_name_kana    | string | null: false              |
+| birth_date         | date   | null: false              |
 
 ### Association
 
@@ -20,16 +20,16 @@
 
 ## Items テーブル
 
-| Column   | Type       | Options           |
-| -------- | ---------- | ----------------- |
-| product  | text       | null: false       |
-| text     | text       | null: false       |
-| category | string     | null: false       |
-| status   | string     | null: false       |
-| fee      | string     | null: false       |
-| day      | string     | null: false       |
-| price    | integer    | null: false       |
-| user     | references | foreign_key: true |
+| Column      | Type       | Options           |
+| ----------- | ---------- | ----------------- |
+| name        | text       | null: false       |
+| text        | text       | null: false       |
+| category_id | integer    | null: false       |
+| status_id   | integer    | null: false       |
+| fee_id      | integer    | null: false       |
+| day_id      | integer    | null: false       |
+| price       | integer    | null: false       |
+| user        | references | foreign_key: true |
 
 ### Association
 
