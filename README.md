@@ -16,17 +16,18 @@
 ### Association
 
 - has_many :items
-- has_many :purchase-records
+- has_many :purchase_records
 
 ## Items テーブル
 
 | Column      | Type       | Options           |
 | ----------- | ---------- | ----------------- |
-| name        | text       | null: false       |
+| name        | string     | null: false       |
 | text        | text       | null: false       |
 | category_id | integer    | null: false       |
 | status_id   | integer    | null: false       |
 | fee_id      | integer    | null: false       |
+| prefecture  | integer    | null: false       |
 | day_id      | integer    | null: false       |
 | price       | integer    | null: false       |
 | user        | references | foreign_key: true |
@@ -34,9 +35,9 @@
 ### Association
 
 - belongs_to :user
-- has_one :purchase-record
+- has_one :purchase_record
 
-## Purchase-Records テーブル
+## PurchaseRecords テーブル
 
 | Column | Type       | Options           |
 | ------ | ---------- | ----------------- |
@@ -47,19 +48,19 @@
 
 - belongs_to :user
 - belongs_to :item
-- has one :shipping-address
+- has_one :shipping_address
 
-## Shipping-Addresses テーブル
+## ShippingAddresses テーブル
 
 | Column          | Type       | Options           |
 | --------------- | ---------- | ----------------- |
-| Postal-code     | integer    | null: false       |
-| Prefecture      | string     | null: false       |
-| City            | string     | null: false       |
-| Address         | string     | null: false       |
-| Phone-number    | integer    | null: false       |
-| Purchase-Record | references | foreign_key: true |
+| postal_code     | string     | null: false       |
+| prefecture      | integer    | null: false       |
+| city            | string     | null: false       |
+| address         | string     | null: false       |
+| phone_number    | integer    | null: false       |
+| purchase_record | references | foreign_key: true |
 
 ### Association
 
-- belongs_to :purchase-record
+- belongs_to :purchase_record
