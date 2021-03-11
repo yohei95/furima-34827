@@ -5,10 +5,19 @@ class Item < ApplicationRecord
   belongs_to :day
   belongs_to :prefecture
   belongs_to :status
+  has_one_attached :image
 end
 
-  #空の投稿を保存できないようにする
-  validates :name, :text, :price, presence: true
-
-  #ジャンルの選択が「--」の時は保存できないようにする
-  validates :category_id, :status_id, :fee_id,:prefecture_id,:day_id, numericality: { other_than: 1 } 
+with_options presence: true do
+  validates :name
+  validates :text
+  validates :price, inclusion: { in: 300..9_999_999 }, format: { with: /\A[0-9]+\z/ }
+  validates :image
+  with_options numericality: { other_than: 1 }  do
+    validates :category_id
+    validates :status_id
+    validates :fee_id
+    validates :prefecture_id
+    validates :day_id
+  end
+end
