@@ -41,12 +41,12 @@ require 'rails_helper'
         @user.valid?
         expect(@user.errors.full_messages).to include('Email is invalid')
       end
-      it 'passwordが空では登録できない' do
+      it 'パスワードが空では登録できない' do
         @user.password = ''
         @user.valid?
         expect(@user.errors.full_messages).to include("Password can't be blank")
       end
-      it 'passwordが5文字以下では登録できない' do
+      it 'パスワードが5文字以下では登録できない' do
         @user.password = 'a0000'
         @user.password_confirmation = 'a0000'
         @user.valid?
@@ -59,7 +59,13 @@ require 'rails_helper'
         @user.valid?
         expect(@user.errors.full_messages).to include("Password is invalid")
       end
-      it 'passwordが存在してもpassword_confirmationが空では登録できない' do
+      it 'パスワードは、英字のみでは登録できない' do
+        @user.password = 'aaaaaa'
+        @user.password_confirmation = 'aaaaaa'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Password is invalid")
+      end
+      it 'パスワードが存在してもpassword_confirmationが空では登録できない' do
         @user.password_confirmation = ''
         @user.valid?
         expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
@@ -90,7 +96,7 @@ require 'rails_helper'
         @user.first_name = 'taro'
         @user.valid?
         expect(@user.errors.full_messages).to include('First name is invalid. Input full-width characters.')
-    end
+      end
       it 'ユーザー本名のフリガナは、名字が空では登録できない' do
         @user.last_name_kana = ''
         @user.valid?
