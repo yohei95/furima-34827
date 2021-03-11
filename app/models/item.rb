@@ -6,12 +6,12 @@ class Item < ApplicationRecord
   belongs_to :prefecture
   belongs_to :status
   has_one_attached :image
-end
+
 
 with_options presence: true do
   validates :name
   validates :text
-  validates :price, inclusion: { in: 300..9_999_999 }, format: { with: /\A[0-9]+\z/ }
+  validates :price, inclusion: { in: 300..9999999 }, format: { with: /\A[0-9]+\z/ }
   validates :image
   with_options numericality: { other_than: 1 }  do
     validates :category_id
@@ -21,3 +21,6 @@ with_options presence: true do
     validates :day_id
   end
 end
+
+end
+
