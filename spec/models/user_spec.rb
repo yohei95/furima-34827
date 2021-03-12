@@ -1,15 +1,14 @@
 require 'rails_helper'
- RSpec.describe User, type: :model do
+RSpec.describe User, type: :model do
   before do
     @user = FactoryBot.build(:user)
   end
 
-   describe "ユーザー新規登録" do
+  describe 'ユーザー新規登録' do
     context '新規登録できるとき' do
       it 'nickname、email、password、password_confirmation、last_name
       first_name、last_name_kana、first_name_kana、birth_date が存在すれば登録できる' do
-      expect(@user).to be_valid
-
+        expect(@user).to be_valid
       end
       it 'passwordが6文字以上であれば登録できる' do
         @user.password = 'a00000'
@@ -51,19 +50,18 @@ require 'rails_helper'
         @user.password_confirmation = 'a0000'
         @user.valid?
         expect(@user.errors.full_messages).to include('Password is too short (minimum is 6 characters)')
-        
       end
       it 'パスワードは、半角英数字混合でないと登録できない' do
         @user.password = '000000'
         @user.password_confirmation = '000000'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Password is invalid")
+        expect(@user.errors.full_messages).to include('Password is invalid')
       end
       it 'パスワードは、英字のみでは登録できない' do
         @user.password = 'aaaaaa'
         @user.password_confirmation = 'aaaaaa'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Password is invalid")
+        expect(@user.errors.full_messages).to include('Password is invalid')
       end
       it 'パスワードが存在してもpassword_confirmationが空では登録できない' do
         @user.password_confirmation = ''
@@ -88,9 +86,9 @@ require 'rails_helper'
         expect(@user.errors.full_messages).to include("First name can't be blank")
       end
       it 'ユーザー本名は、名字が全角（漢字・ひらがな・カタカナ）でないと登録できない' do
-          @user.last_name = 'yamada'
-          @user.valid?
-          expect(@user.errors.full_messages).to include('Last name is invalid. Input full-width characters.')
+        @user.last_name = 'yamada'
+        @user.valid?
+        expect(@user.errors.full_messages).to include('Last name is invalid. Input full-width characters.')
       end
       it 'ユーザー本名は、名前が全角（漢字・ひらがな・カタカナ）でないと登録できない' do
         @user.first_name = 'taro'
@@ -123,5 +121,5 @@ require 'rails_helper'
         expect(@user.errors.full_messages).to include("Birth date can't be blank")
       end
     end
- end
+  end
 end

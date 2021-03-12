@@ -1,21 +1,18 @@
 require 'rails_helper'
 
 RSpec.describe Item, type: :model do
-
   before do
     @item = FactoryBot.build(:item)
   end
 
-   describe "商品の出品" do
-    
+  describe '商品の出品' do
     context '商品出品できるとき' do
       it '商品画像、商品名、商品の説明、カテゴリー、商品の状態、
       配送料の負担について、発送元の地域、日数、価格 が存在すれば出品できる' do
-      expect(@item).to be_valid
+        expect(@item).to be_valid
       end
     end
   end
-
 
   context '商品出品できないとき' do
     it '商品画像が空では登録できない' do
@@ -41,7 +38,7 @@ RSpec.describe Item, type: :model do
     it 'category_idが1では登録できない' do
       @item.category_id = 1
       @item.valid?
-      expect(@item.errors.full_messages).to include("Category must be other than 1")
+      expect(@item.errors.full_messages).to include('Category must be other than 1')
     end
     it '商品の状態が空では登録できない' do
       @item.status_id = ''
@@ -51,7 +48,7 @@ RSpec.describe Item, type: :model do
     it 'status_idが1では登録できない' do
       @item.status_id = 1
       @item.valid?
-      expect(@item.errors.full_messages).to include("Status must be other than 1")
+      expect(@item.errors.full_messages).to include('Status must be other than 1')
     end
     it '配送料の負担についてが空では登録できない' do
       @item.fee_id = ''
@@ -61,7 +58,7 @@ RSpec.describe Item, type: :model do
     it 'fee_idが1では登録できない' do
       @item.fee_id = 1
       @item.valid?
-      expect(@item.errors.full_messages).to include("Fee must be other than 1")
+      expect(@item.errors.full_messages).to include('Fee must be other than 1')
     end
     it '発送元の地域が空では登録できない' do
       @item.prefecture_id = ''
@@ -71,7 +68,7 @@ RSpec.describe Item, type: :model do
     it 'prefecture_idが1では登録できない' do
       @item.prefecture_id = 1
       @item.valid?
-      expect(@item.errors.full_messages).to include("Prefecture must be other than 1")
+      expect(@item.errors.full_messages).to include('Prefecture must be other than 1')
     end
     it '発送までの日数が空では登録できない' do
       @item.day_id = ''
@@ -81,7 +78,7 @@ RSpec.describe Item, type: :model do
     it 'day_idが1では登録できない' do
       @item.day_id = 1
       @item.valid?
-      expect(@item.errors.full_messages).to include("Day must be other than 1")
+      expect(@item.errors.full_messages).to include('Day must be other than 1')
     end
     it '販売価格が空では登録できない' do
       @item.price = ''
@@ -91,19 +88,17 @@ RSpec.describe Item, type: :model do
     it '販売価格が299以下では登録できない' do
       @item.price = 200
       @item.valid?
-      expect(@item.errors.full_messages).to include("Price is not included in the list")
+      expect(@item.errors.full_messages).to include('Price is not included in the list')
     end
     it '販売価格が10,000,000,000以上では登録できない' do
-      @item.price = 10000000
+      @item.price = 10_000_000
       @item.valid?
-      expect(@item.errors.full_messages).to include("Price is not included in the list")
+      expect(@item.errors.full_messages).to include('Price is not included in the list')
     end
     it '販売価格が半角数字でないと登録できない' do
       @item.price = '７７７'
       @item.valid?
-      expect(@item.errors.full_messages).to include("Price is not included in the list")
+      expect(@item.errors.full_messages).to include('Price is not included in the list')
     end
-      
   end
- end
-
+end
