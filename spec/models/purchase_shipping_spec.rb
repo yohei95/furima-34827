@@ -87,6 +87,13 @@ RSpec.describe PurchaseShipping, type: :model do
         @purchase_shipping.valid?
         expect(@purchase_shipping.errors.full_messages).to include("User can't be blank")
       end
+
+
+      it 'item_idが空だと保存できない' do
+        @purchase_shipping.item_id = ''
+        @purchase_shipping.valid?
+        expect(@purchase_shipping.errors.full_messages).to include("Item can't be blank")
+      end
     end
   end
 end
