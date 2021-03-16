@@ -10,12 +10,18 @@ RSpec.describe PurchaseShipping, type: :model do
 
   describe '配送先登録' do
     context '配送先登録できるとき' do
-      it '郵便番号・都道府県・市区町村・番地・電話番号が存在すれば出品できる' do
+      it '郵便番号、都道府県、市区町村、番地、建物番号、電話番号が存在すれば登録できる' do
         expect(@purchase_shipping).to be_valid
       end
+
+      it '建物番号は空でも登録できる' do
+        @purchase_shipping.building = ''
+        expect(@purchase_shipping).to be_valid
+      end
+      
     end
 
-    context '配送先登録できるとき' do
+    context '配送先登録できないとき' do
       it '郵便番号が空では登録できない' do
         @purchase_shipping.postal_code = ''
         @purchase_shipping.valid?
@@ -67,6 +73,19 @@ RSpec.describe PurchaseShipping, type: :model do
         @purchase_shipping.phone_number = '090123456789'
         @purchase_shipping.valid?
         expect(@purchase_shipping.errors.full_messages).to include('Phone number is invalid')
+      end
+
+      it '電話番号は英数字混合だと保存できない' do
+        @purchase_shipping.phone_number = '0901234567a'
+        @purchase_shipping.valid?
+        expect(@purchase_shipping.errors.full_messages).to include('Phone number is invalid')
+      end
+
+
+      it 'user_idが空だと保存できない' do
+        @purchase_shipping.user_id = ''
+        @purchase_shipping.valid?
+        expect(@purchase_shipping.errors.full_messages).to include("User can't be blank")
       end
     end
   end
